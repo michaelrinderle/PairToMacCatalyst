@@ -1,2 +1,6 @@
 # Pair To MacCatalyst
-Visual Studio 2022 .Net Maui Mac Catalyst Debugger
+
+This extension allows you to pair to a .Net Maui Mac Catalyst app running on a Mac from Visual Studio 2022.
+
+## License
+[MIT](LICENSE)]
