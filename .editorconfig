@@ -1,0 +1,14 @@
+root = true
+
+# All files
+[*]
+indent_style = space
+
+# Xml files
+[*.xml]
+indent_size = 2
+
+# Apply settings to all files
+[*.cs]
+guidelines = 120
+guidelines_style = .5px solid dimgray

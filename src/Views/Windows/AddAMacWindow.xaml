@@ -1,0 +1,120 @@
+﻿<platform:DialogWindow
+    x:Class="Ptm.Views.Windows.AddAMacWindow"
+    x:Name="AddAMacWindowXaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d"
+    Width="390"
+    Height="225"
+    d:DesignHeight="390"
+    d:DesignWidth="225">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="10"
+            GlassFrameThickness="1"
+            ResizeBorderThickness="5"
+            UseAeroCaptionButtons="false" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- Title Bar Override -->
+            <Grid
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                Margin="0, 5, 15, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="1"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=AddAMacWindowXaml}"
+                    Content="&#x2715;"
+                    Cursor="Hand"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Height="Auto"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right"
+                    Margin="0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Width="Auto" />
+            </Grid>
+            <!-- Add a Mac Title Panel -->
+            <StackPanel
+                Grid.Row="1"
+                Margin="15, 0, 15, 15">
+                <Label
+                    Content="Add a Mac"
+                    FontSize="20" />
+            </StackPanel>
+            <!-- Mac Info Panel -->
+            <StackPanel
+                Grid.Row="2"
+                Margin="15, 7, 15, 15">
+                <Label
+                    Content="Mac name or IP Address:"
+                    Margin="0"
+                    Padding="0, 0, 0, 5" />
+
+                <TextBox
+                    x:Name="MacAddressTextBox"
+                    Height="25"
+                    Padding="0"
+                    Text="{Binding MacHostNameOrIp, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center" />
+
+                <TextBlock
+                    Margin="0, 7, 0, 4"
+                    VerticalAlignment="Center">
+                    <Hyperlink
+                        Command="{Binding HyperlinkCommand}"
+                        CommandParameter="https://support.apple.com/guide/mac-help/find-your-computers-name-and-network-address-mchlp1177/mac">
+                        How to find the address of your Mac
+                    </Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+            <!-- Button Commands -->
+            <StackPanel
+                Grid.Row="3"
+                HorizontalAlignment="Right"
+                Margin="15, 5, 15, 15"
+                Orientation="Horizontal" >
+
+                <Button
+                    Command="{Binding AddAMacCommand}"
+                    CommandParameter="{Binding ElementName=AddAMacWindowXaml}"
+                    Content="Add"
+                    IsEnabled="{Binding IsAddButtonEnabled}"
+                    Margin="0, 0, 5,0"
+                    VerticalAlignment="Center" />
+
+                <Button
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=AddAMacWindowXaml}"
+                    Content="Cancel"
+                    VerticalAlignment="Center" />
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</platform:DialogWindow>

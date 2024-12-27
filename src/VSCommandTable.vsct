@@ -7,11 +7,113 @@
   <Include href="VSGlobals.vsct"/>
 
   <Commands package="Ptm">
+
+      <!-- Ptm Groups -->
+      <Groups>
+
+          <!-- Top Level Tool Menu Group -->
+          <Group guid="Ptm" id="PtmTopLevelMenuGroup" priority="0x0600">
+              <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+          </Group>
+          <Group guid="Ptm" id="PtmTopLevelSubMenuGroup" priority="0x0000">
+              <Parent guid="Ptm" id="PtmTopLevelSubMenu"/>
+          </Group>
+
+          <!-- Toolbar Group -->
+          <Group guid="Ptm" id="PtmToolbarMenuGroup" priority="0x0600">
+              <Parent guid="Ptm" id="PtmToolbarMenu"/>
+          </Group>
+
+      </Groups>
+
+      <!-- Ptm Menus -->
+      <Menus>
+
+          <!-- Top Level Tool Menu -->
+          <Menu guid="Ptm" id="PtmTopLevelSubMenu" priority="0x0100" type="Menu">
+              <Parent guid="Ptm" id="PtmTopLevelMenuGroup"/>
+              <Strings>
+                  <ButtonText>Mac Catalyst</ButtonText>
+              </Strings>
+           </Menu>
+
+          <!-- Toolbar Menu -->
+          <Menu guid="Ptm" id="PtmToolbarMenu" priority="0x0100" type="Toolbar">
+              <CommandFlag>DefaultDocked</CommandFlag>
+              <Strings>
+                  <ButtonText>Mac Catalyst</ButtonText>
+              </Strings>
+           </Menu>
+
+      </Menus>
+
+      <!-- Ptm Buttons -->
+      <Buttons>
+
+        <!-- Top Level Tool Menu Buttons -->
+        <Button guid="Ptm" id="PairToMacCommand" priority="0x0100" type="Button">
+            <Parent guid="Ptm" id="PtmTopLevelSubMenuGroup"/>
+            <Icon guid="ImageCatalogGuid" id="Computer"/>
+            <CommandFlag>IconIsMoniker</CommandFlag>
+            <Strings>
+                <ButtonText>Pair to Mac</ButtonText>
+            </Strings>
+        </Button>
+
+          <Button guid="Ptm" id="OptionsPageCommand" priority="0x0101" type="Button">
+              <Parent guid="Ptm" id="PtmTopLevelSubMenuGroup"/>
+              <Icon guid="ImageCatalogGuid" id="Settings"/>
+              <CommandFlag>IconIsMoniker</CommandFlag>
+              <Strings>
+                  <ButtonText>Options</ButtonText>
+              </Strings>
+          </Button>
+
+          <!-- REMOVE AFTER DEBUGGING -->
+          <Button guid="Ptm" id="ClearCacheCommand" priority="0x0300" type="Button">
+              <Parent guid="Ptm" id="PtmTopLevelSubMenuGroup"/>
+              <Icon guid="ImageCatalogGuid" id="ClearWindowContent"/>
+              <CommandFlag>IconIsMoniker</CommandFlag>
+              <Strings>
+                  <ButtonText>Clear Cache</ButtonText>
+              </Strings>
+          </Button>
+
+        <!-- Toolbar Menu Buttons -->
+        <Button guid="Ptm" id="PairToMacCommand" priority="0x0501" type="Button">
+            <Parent guid="Ptm" id="PtmToolbarMenuGroup"/>
+            <Icon guid="ImageCatalogGuid" id="Computer"/>
+            <CommandFlag>IconIsMoniker</CommandFlag>
+            <Strings>
+                <ButtonText>Pair to Mac</ButtonText>
+            </Strings>
+         </Button>
+
+      </Buttons>
   </Commands>
+
+  <!-- KeyBindings -->
+  <KeyBindings>
+      <!-- (Ctrl + Shift + 0)-->
+      <KeyBinding guid="Ptm" id="ClearCacheCommand" editor="guidVSStd97" key1="1" mod1="CONTROL" key2="3" mod2="CONTROL" />
+  </KeyBindings>
 
   <Symbols>
     <GuidSymbol name="Ptm" value="{5cddb07a-c913-4da6-876f-f187fe5e9e9f}">
-      
+        <!-- Group Symbols -->
+        <IDSymbol name="PtmTopLevelMenuGroup" value="0x1020"/>
+        <IDSymbol name="PtmTopLevelSubMenuGroup" value="0x1021"/>
+        <IDSymbol name="PtmToolbarMenuGroup" value="0x1022"/>
+
+        <!-- Menu Symbols -->
+        <IDSymbol name="PtmTopLevelSubMenu" value="0x2020"/>
+        <IDSymbol name="PtmToolbarMenu" value="0x2021"/>
+
+        <!-- Command Symbols -->
+        <IDSymbol name="ClearCacheCommand" value="0x0300" />
+        <IDSymbol name="PairToMacCommand" value="0x0301" />
+        <IDSymbol name="OptionsPageCommand" value="0x0302" />
     </GuidSymbol>
+    <GuidSymbol  name="ImageCatalogGuid" value="{ae27a6b0-e345-4288-96df-5eaf394ee369}" />
   </Symbols>
 </CommandTable>
