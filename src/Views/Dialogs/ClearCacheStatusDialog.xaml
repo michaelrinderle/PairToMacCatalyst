@@ -1,0 +1,35 @@
+﻿<platform:DialogWindow
+    x:Class="Ptm.Views.Dialogs.ClearCacheStatusDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d"
+    Width="200"
+    Height="100"
+    d:DesignHeight="200"
+    d:DesignWidth="200">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="10"
+            GlassFrameThickness="1"
+            ResizeBorderThickness="5"
+            UseAeroCaptionButtons="false" />
+    </WindowChrome.WindowChrome>
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+
+        <Label
+            x:Name="StatusLabel"/>
+
+        <Button
+            Margin="0,15,0,15"
+            Click="Close_OnClick"
+            Content="Okay"></Button>
+
+    </StackPanel>
+</platform:DialogWindow>

@@ -1,0 +1,260 @@
+﻿<platform:DialogWindow
+    x:Class="Ptm.Views.Windows.PairToMacWindow"
+    x:Name="PairToMacWindowXaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:c="clr-namespace:Ptm.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d"
+    Width="590"
+    Height="545"
+    d:DesignHeight="600"
+    d:DesignWidth="590"
+    Title="Pair To Mac Catalyst">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="10"
+            GlassFrameThickness="1"
+            ResizeBorderThickness="5"
+            UseAeroCaptionButtons="false" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <c:MacConnectionActionConverter x:Key="MacConnectionActionConverter" />
+        <c:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <c:MacAvailabilityConverter x:Key="MacAvailabilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar Override -->
+        <Grid
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Margin="0, 5, 15, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                FontSize="16"
+                FontWeight="Bold"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Center">
+                <Hyperlink
+                    Command="{Binding HyperlinkCommand}"
+                    CommandParameter="https://learn.microsoft.com/en-us/dotnet/maui/ios/pair-to-mac?view=net-maui-9.0#enable-remote-login-on-the-mac"
+                    TextDecorations="{x:Null}">
+                    &#63;
+                </Hyperlink>
+            </TextBlock>
+
+            <Button
+                Grid.Column="1"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding ElementName=PairToMacWindowXaml}"
+                Content="&#x2715;"
+                Cursor="Hand"
+                FontSize="16"
+                FontWeight="Bold"
+                Height="Auto"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Center"
+                Width="Auto">
+            </Button>
+
+        </Grid>
+        <!-- Add a Mac Title Panel -->
+        <StackPanel
+            Margin="15, 7, 15, 0"
+            Grid.Row="1">
+
+            <Label
+                Content="Pair To Mac"
+                FontFamily="Segoe UI"
+                FontSize="18" />
+
+            <Label
+                Margin="0, 25, 15, 0"
+                Content="Select a Mac:" />
+
+        </StackPanel>
+        <!-- Mac Collection ListView -->
+        <ListView
+            x:Name="ListViewXaml"
+            Grid.Row="2"
+            BorderBrush="Gray"
+            BorderThickness="1,1,1,1"
+            ItemsSource="{Binding MacConnectionDetails, Mode=OneWay, NotifyOnTargetUpdated=True}"
+            Margin="15"
+            SelectedItem="{Binding SelectedMacConnectionDetail, Mode=TwoWay}"
+            VerticalAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Background="#10D3D3D3">
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+
+                                <MenuItem
+                                    Header ="{Binding IsConnected, Converter={StaticResource MacConnectionActionConverter}}"
+                                    Command="{Binding DataContext.SelectedPairActionCommand, Source={x:Reference ListViewXaml}}"
+                                    CommandParameter="{Binding }"
+                                    Visibility="{Binding IsAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <MenuItem.Icon>
+                                        <Image
+                                            Source="{Binding DataContext.LinkImage, Source={x:Reference ListViewXaml}}"
+                                            Visibility="{Binding IsConnected, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem
+                                    Header="Forget This Mac"
+                                    Command="{Binding DataContext.ForgetThisMacCommand, Source={x:Reference ListViewXaml}}"
+                                    CommandParameter="{Binding }"/>
+
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image
+                            Grid.Column="0"
+                            Margin="15, 15, 15, 15"
+                            Source="{Binding DataContext.ComputerImage, RelativeSource={RelativeSource AncestorType=ListView}}" />
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Vertical">
+
+                            <Label
+                                Content="{Binding Hostname}"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Margin="10, 0, 0, 0"/>
+
+                            <Label
+                                Padding="15, 0, 0, 0">
+                                <Label.Content>
+                                    <MultiBinding Converter="{StaticResource MacAvailabilityConverter}">
+                                        <Binding Path="IsAvailable" />
+                                        <Binding Path="IpAddress" />
+                                        <Binding Path="IsProcessing" />
+                                    </MultiBinding>
+                                </Label.Content>
+                            </Label>
+
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="2"
+                            HorizontalAlignment="Center"
+                            Margin="0, 0, 15, 0"
+                            VerticalAlignment="Center">
+
+                            <platform:ProgressControl
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                IsEnabled="True"
+                                Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <Image
+                                Source="{Binding DataContext.LinkImage, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding IsConnected, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#20D3D3D3"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <!-- Status Panel -->
+        <StackPanel
+            x:Name="StatusPanelContainer"
+            Grid.Row="3"
+            Margin="0, 10, 0, 15"
+            Orientation="Vertical"
+            Background="#433519"
+            Visibility="{Binding StatusPanelVisibility, Mode=OneWay}">
+
+            <ContentControl Content="{Binding StatusPanel, Mode=OneWay}"></ContentControl>
+
+        </StackPanel>
+        <!-- Button Commands -->
+        <DockPanel
+            Grid.Row="4"
+            LastChildFill="False"
+            Margin="15, 0, 15, 15">
+
+            <Button
+                Command="{Binding AddAMacCommand}"
+                Content="Add a Mac"
+                DockPanel.Dock="Left"
+                VerticalAlignment="Center" />
+
+            <TextBlock
+                Margin="15,0,0,0"
+                VerticalAlignment="Center">
+                <Hyperlink
+                    Command="{Binding HyperlinkCommand}"
+                    CommandParameter="https://learn.microsoft.com/en-us/dotnet/maui/ios/pair-to-mac?view=net-maui-9.0">
+                    Pair To Mac
+                </Hyperlink>
+            </TextBlock>
+
+            <Button
+                Command="{Binding PairActionButtonCommand}"
+                Content="{Binding PairActionButtonText}"
+                DockPanel.Dock="Right"
+                IsEnabled="{Binding IsPairActionButtonEnabled}"
+                Margin="0,0,0,0" />
+
+        </DockPanel>
+    </Grid>
+</platform:DialogWindow>

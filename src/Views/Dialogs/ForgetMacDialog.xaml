@@ -1,0 +1,118 @@
+﻿<platform:DialogWindow
+    x:Class="Ptm.Views.Dialogs.ForgetMacDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d"
+    Width="415"
+    Height="260"
+    d:DesignHeight="600"
+    d:DesignWidth="400">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="10"
+            GlassFrameThickness="1"
+            ResizeBorderThickness="5"
+            UseAeroCaptionButtons="false" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- Title Bar Override -->
+            <Grid
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                Margin="0, 5, 15, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="1"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    Click="Close_OnClick"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=AddAMacWindowXaml}"
+                    Content="&#x2715;"
+                    Cursor="Hand"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Height="Auto"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Right"
+                    Margin="0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Width="Auto" />
+
+            </Grid>
+            <!-- Add a Mac Title Panel -->
+            <StackPanel
+                Grid.Row="1"
+                Margin="10, 0, 15, 3">
+                <Label
+                    Content="Forget Mac"
+                    FontSize="20" />
+            </StackPanel>
+            <!-- Mac Info Panel -->
+            <StackPanel
+                Grid.Row="2"
+                Margin="15, 0, 15, 15">
+                <Label
+                    Content="Are you sure you want to forget this Mac?"
+                    FontSize="14"
+                    FontWeight="DemiBold"
+                    Margin="0"
+                    Padding="0, 0, 0, 25" />
+
+                <Label
+                    x:Name="MacAddress"
+                    FontWeight="Bold"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center" />
+
+                <TextBlock
+                    Margin="0, 7, 0, 4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    TextWrapping="Wrap"
+                    Text="If you need to connect to this Mac again, you will have to re-enter your credentials"
+                    Width="350"/>
+
+            </StackPanel>
+            <!-- Button Commands -->
+            <StackPanel
+                Grid.Row="3"
+                HorizontalAlignment="Right"
+                Margin="15, 5, 15, 15"
+                Orientation="Horizontal" >
+
+                <Button
+                    Click="Confirm_OnClick"
+                    Content="Yes"
+                    IsEnabled="{Binding IsAddButtonEnabled}"
+                    Margin="0, 0, 5,0"
+                    VerticalAlignment="Center" />
+
+                <Button
+                    Click="Close_OnClick"
+                    Content="No"
+                    VerticalAlignment="Center" />
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</platform:DialogWindow>

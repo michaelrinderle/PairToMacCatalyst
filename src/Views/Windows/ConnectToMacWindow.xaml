@@ -1,0 +1,213 @@
+﻿<platform:DialogWindow
+    x:Class="Ptm.Views.Windows.ConnectToMacWindow"
+    x:Name="ConnectToMacWindowXaml"
+    xmlns:controls="clr-namespace:Ptm.Controls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
+    xmlns:vsimage="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+    toolkit:Themes.UseVsTheme="True"
+    mc:Ignorable="d"
+    Width="480"
+    Height="340"
+    d:DesignHeight="600"
+    d:DesignWidth="400">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="10"
+            GlassFrameThickness="1"
+            ResizeBorderThickness="5"
+            UseAeroCaptionButtons="false" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- Title Bar Override -->
+        <Grid
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Margin="0, 5, 15, 0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="1"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding ElementName=ConnectToMacWindowXaml}"
+                Content="&#x2715;"
+                Cursor="Hand"
+                FontSize="16"
+                FontWeight="Bold"
+                Height="Auto"
+                HorizontalAlignment="Right"
+                HorizontalContentAlignment="Right"
+                Margin="0"
+                Padding="0"
+                VerticalAlignment="Center"
+                Width="Auto" />
+        </Grid>
+        <!-- Connect To Mac Title Panel -->
+        <StackPanel
+            Grid.Row="1"
+            Margin="15, 0, 15, 0">
+
+            <Label
+                Content="Connect To Mac"
+                FontSize="20" />
+
+            <Label
+                Content="Visual Studio needs to connect to the following Mac:"
+                FontSize="14" />
+
+        </StackPanel>
+        <!-- Mac Info Grid -->
+        <Grid
+            Grid.Row="2"
+            Margin="15, 10, 15, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="7.5*" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Content="Host name:"
+                VerticalAlignment="Center"/>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                Content="{Binding MacSshHostname}"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Content="SSH fingerprint:"
+                VerticalAlignment="Center" />
+
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="2"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+
+                <platform:ProgressControl
+                    Margin="0, 0, 5, 0"
+                    Visibility="{Binding SshProgressControlVisibility}"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center" />
+
+                <Image
+                    Margin="0, 0, 5, 0"
+                    Source="{Binding SshSuccessImage}"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding SshStatusImageVisibility}" />
+
+                <TextBlock
+                    FontWeight="{Binding SshFootprintTextBlockFontWeight}"
+                    Height="Auto"
+                    Text="{Binding SshFootPrintTextBlockText}"
+                    TextWrapping="Wrap"
+                    VerticalAlignment="Center"
+                    Width="300" />
+
+            </StackPanel>
+
+            <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                Content="Mac username:"
+                VerticalAlignment="Center" />
+
+            <TextBox
+                x:Name="MacSshUsernameTextBox"
+                Grid.Row="4"
+                Grid.Column="2"
+                Height="25"
+                HorizontalAlignment="Left"
+                Padding="0"
+                Text="{Binding MacSshUsername}"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="175" />
+
+            <Label
+                Grid.Row="6"
+                Grid.Column="0"
+                Content="Mac password:"
+                VerticalAlignment="Center" />
+
+            <PasswordBox
+                x:Name="MacSshPasswordPasswordBox"
+                Grid.Row="6"
+                Grid.Column="2"
+                controls:PasswordBoxHelper.BoundPassword="{Binding MacSshPassword, Mode=TwoWay}"
+                Height="25"
+                HorizontalAlignment="Left"
+                Padding="0"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Width="175" />
+
+        </Grid>
+        <!-- Dummy Panel, Future Use -->
+        <StackPanel
+            Grid.Row="2"
+            Margin="15, 0, 15, 0"
+            Visibility="Hidden">
+            <!-- Future Use -->
+        </StackPanel>
+        <!-- Button Commands -->
+        <StackPanel
+            Grid.Row="5"
+            HorizontalAlignment="Right"
+            Margin="15, 0, 15, 15"
+            Orientation="Horizontal">
+
+            <Button
+                Command="{Binding SignInCommand}"
+                CommandParameter="{Binding ElementName=ConnectToMacWindowXaml}"
+                Content="Sign in"
+                DockPanel.Dock="Left"
+                IsEnabled="{Binding IsSshSigninButtonEnabled}"
+                Margin="0, 0, 5,0"
+                VerticalAlignment="Center" />
+
+            <Button
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding ElementName=ConnectToMacWindowXaml}"
+                Content="Cancel"
+                DockPanel.Dock="Right"
+                Margin="0,0,0,0" />
+
+        </StackPanel>
+    </Grid>
+</platform:DialogWindow>

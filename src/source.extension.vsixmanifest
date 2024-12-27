@@ -17,5 +17,11 @@
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\msys-2.0.dll" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\msys-crypto-3.dll" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\msys-gcc_s-seh-1.dll" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\msys-z.dll" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\ssh-keygen.exe" />
+        <Asset Type="Microsoft.VisualStudio.Content.Files" d:Source="File" Path="Binaries\SSH\ssh-keyscan.exe" />
     </Assets>
 </PackageManifest>
