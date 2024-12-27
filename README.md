@@ -31,7 +31,7 @@ Operations are all wired into the Visual Studio build commands, as long as your 
 profile is set to 'Mac Catalyst', the commands will execute operations on your remote MacOs
 device.
 
-# Comming Soon
+# Coming Soon
 
     - Remote Vs debugging from Windows to MacOS
     - Deploy application from Windows 
