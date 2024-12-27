@@ -2,8 +2,8 @@
 
 ## Overview
 
-<p align="center">
-  <img src="assets/vs-maccatalyst.png" alt="vs maccatalyst" style="vertical-align: middle;" />
+<p style="display: flex; align-items: center; justify-content: center;">
+  <img src="assets/vs-maccatalyst.png" alt="vs maccatalyst" style="margin-right: 10px;" />
   Sick of this useless VS operation for .Net Maui apps on VS 2022 for Windows?
 </p>
 
